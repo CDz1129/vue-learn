@@ -1,0 +1,21 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>样式绑定</title>
+    <script src="./vue.js"></script>
+</head>
+<body>    
+    <div id="app">{{message}}</div>
+    <script>
+    var vm = new Vue({
+        el:'#app',
+        data() {
+            return {
+                message : "hello world"
+            }
+        },
+    })
+    </script>
+</body>
+
+</html>

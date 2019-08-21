@@ -1,0 +1,74 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TodoList</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="todoList">
+        <input type="text" v-model="inputValue" />
+        <button v-on:click="handleBtnClick">提交</button>
+        <ul>
+            <!-- <li v-for="(item, index) in list" :key="index">{{item}}</li> -->
+            <todo-list v-for="(item, index) in list" :key="index" :index="index" :content="item" @delete=handleItemDelete>
+            </todo-list>
+        </ul>
+    </div>
+
+    <script>
+
+        // 全局组件
+        // Vue.component("TodoList", {
+        //     props: ["content"],
+        //     template: "<li>{{content}}</li>"
+        // })
+
+        //局部组件
+        var TodoList = {
+            props: ["content","index"],
+            template: "<li @click='handleItemClick'>{{content}}</li>",
+            methods: {
+                handleItemClick:function(){
+                    //给父组件定义事件 ，用户子组件想父组件传值使用
+                    //这个地方调用 使用到props的参数 是用 this.来调用
+                    this.$emit("delete",this.index)
+                }
+            },
+        }
+
+
+        var todoList = new Vue({
+            el: '#todoList',
+            components: {
+                TodoList: TodoList
+            },
+            data() {
+                return {
+                    list: [
+                        // '第一课',
+                        // '第二课',
+                        // '第三课',
+                        // '第四课'
+                    ],
+                    inputValue: ''
+                }
+            },
+            methods: {
+                handleBtnClick: function () {
+                    // alert(this.inputValue)
+                    this.list.push(this.inputValue);
+                    this.inputValue = '';
+                },
+                handleItemDelete:function(index){
+                    this.list.splice(index,1);
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>jquery-todolist</title>
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <div>
+        <input id="inputValue" type="text" />
+        <button id="btn">提交</button>
+        <ul id="list">
+
+        </ul>
+    </div>
+    <script>
+        function Page() {
+
+        }
+        $.extend(Page.prototype, {
+            init: function () {
+                this.bindEvents()
+            },
+            bindEvents: function () {
+                var btn = $('#btn');
+                btn.on('click', $.proxy(this.handleBtnClick, this))
+                // btn.on('click',this.handleBtnClick)
+            },
+            handleBtnClick: function () {
+                // alert(this)
+                var inputEven = $('#inputValue');
+                var inputValue = inputEven.val();
+                $('#list').append('<li>' + inputValue + '</li>');
+                inputEven.val('');
+            }
+        })
+
+        var page = new Page();
+        page.init();
+    </script>
+</body>
+
+</html>
