@@ -4,14 +4,36 @@
     <title>样式绑定</title>
     <script src="./vue.js"></script>
 </head>
+<style>
+.activated {
+    color: red;
+}
+</style>
 <body>    
-    <div id="app" >{{message}}</div>
+    <!-- class的对象绑定 -->
+    <!-- <div id="app" :class='{activated : isActivated}'  @click='handleClick'>{{message}}</div> -->
+    <!-- class的数组绑定 -->
+    <div id="app" :class='[activated]'  @click='handleClick'>{{message}}</div>
     <script>
     var vm = new Vue({
         el:'#app',
         data() {
             return {
-                message : "hello world"
+                message : "hello world",
+                activated :'',
+            }
+        },
+        methods: {
+            handleClick:function(){
+                //引用VUE 内部元素一定要 使用this关键字
+                // this.isActivated = !this.isActivated;
+                // if (this.activated==='activated') {
+                //     this.activated = ''                    
+                // }else{
+                //     this.activated = 'activated' 
+                // }
+
+                this.activated = this.activated === 'activated'?'':'activated'
             }
         },
     })
