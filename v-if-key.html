@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>v-if-key</title>
+</head>
+<body>
+    <div id= 'app'>
+        <!-- vue的虚拟dom渲染机制是，会尽量复用页面上的重复dom,
+        当我们没有使用唯一键时，就会出现上次输入还在其中。
+
+        key的使用，vue可以识别为唯一键，通过key的不同来做相应的渲染 -->
+        <div v-if="show">
+            username <input type="text" key="username"/> 
+        </div>
+        <div v-else>
+            email <input type="text" key="email"/>
+        </div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data() {
+                return {
+                    show:false
+                }
+            },
+        })
+    </script>
+</body>
+</html>

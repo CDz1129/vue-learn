@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-for列表渲染</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id = 'app'>
+        <!-- 修改数组方式：
+            直接使用给定api pop push splice(开始下标，数量，更换内容),或者直接更换引用都可以。
+            但是不可以 
+            key值使用，数组遍历时，使用key值比index更加高效，
+            我理解的是，因为后台很有可能list 不是一个有序数组，或者说这个排序什么的需要变化，
+            而使用后台传入ID唯一键作为数组，可以很好让VUE 性能得到最优
+        -->
+        <!-- <div v-for="(item, index) in list" :key="index">
+            {{item}}
+        </div> -->
+
+        <!-- 对象遍历 -->
+        <!-- 使用 template VUE给的模板可以在 遍历是或者 判断时，
+        不需要额外的 div -->
+        <template v-for="(item, key,index) in userinfo" >
+            <div>
+                    {{item}}
+            </div>
+            <span>
+                    {{key}}
+            </span>
+            <div>
+                {{index}}
+            </div>
+        </template>
+
+        <!-- 使用set修改
+            修改对象： 1 vm.$set(修改的引用, 修改对象的值（必须是字符串）, 修改的内容)
+                   vue静态方法 2 Vue.$set(修改的引用, 修改对象的值（必须是字符串）, 修改的内容)
+            修改数组
+            1 vm.$set(修改的引用, 数组下标, 修改的内容)
+                   vue静态方法 2 Vue.$set(修改的引用, 数组下标, 修改的内容) -->
+    </div>
+
+</body>
+<script>
+    // var vm = new Vue({
+    //     el:'#app',
+    //     data() {
+    //         return {
+    //             list:[
+    //                 'hello',
+    //                 'world',
+    //                 'this',
+    //                 'is',
+    //                 'a',
+    //                 'world'
+    //             ]
+    //         }
+    //     },
+    // })
+    Vue.component(id, [definition])
+    var vm = new Vue({
+        el:'#app',
+        data() {
+            return {
+                userinfo:{
+                    username:'chendezhi',
+                    sex :"男",
+                    age:24
+
+                }
+
+            }
+        },
+    })
+</script>
+</html>

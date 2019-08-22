@@ -8,9 +8,13 @@
 </head>
 <body>
     <div id = 'app'>
+        <!-- 条件渲染——VUE会操作DOM，但为false时 删除此dom -->
         <div v-if="show">
             {{message}}
         </div>
+        <!-- else or if else必须紧跟在 if之后， -->
+        <div v-else >esle</div>
+        <!-- show渲染机制是 样式的隐藏 -->
         <div v-show="show">
             bye wolrd
         </div>
