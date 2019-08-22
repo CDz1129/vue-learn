@@ -1,0 +1,41 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>computed set get方法</title>
+</head>
+
+<body>
+    <script src="./vue.js"></script>
+    <div id="app">
+        {{fullName}}
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    firstName: 'Cheng',
+                    lastName: 'Dezhi',
+                }
+            },
+            //计算属性的 get set方法使用
+            computed: {
+                fullName: {
+                    get: function () {
+                        return this.firstName + ' ' + this.lastName;
+                    },
+                    set:function(value){
+                        let names = value.split(" ")
+                        this.firstName = names[0];
+                        this.lastName = names[1];
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
