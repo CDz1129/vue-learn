@@ -1,0 +1,62 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>父子组件间的数据传递</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <counter ref="one" @change='handleChange' :count='2'></counter>
+        <counter ref="two" @change='handleChange' :count='2'></counter>
+        <div>
+            {{total}}
+        </div>
+    </div>
+    <script>
+
+        //VUE单项数据流概念：
+        //从父组件修改值 ——> 子组件变化是可以
+        // 但是不可以 子组件修改 ——> 父组件的值
+        // 原因：因为父组件中有值很多时候是被 多个子组件传递
+        //     当父组件传递的值 是一个引用类型时，子组件修改父组件值，进而更改了父组件值，影响到其他组件，造成不可预测结果
+        var counter = {
+            template: '<div @click="handleClick">{{number}}</div>',
+            data() {
+                return {
+                    number: this.count
+                }
+            },
+            props:
+                ['count'],
+                methods: {
+                    handleClick:function(){
+                        this.number++
+                        this.$emit('change')
+                    }
+                },
+        }
+
+        var vm = new Vue({
+            el: '#root',
+            components: {
+                counter: counter
+            },
+            data() {
+                return {
+                    total:0
+                }
+            },
+            methods:{
+                handleChange:function(){
+                    this.total=this.$refs.one.number + this.$refs.two.number
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

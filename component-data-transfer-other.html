@@ -1,0 +1,55 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>非父子组件间传递值（bus/总线/订阅发布/监视者模式）</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <child content="hell"></child>
+        <child content="bie"></child>
+    </div>
+</body>
+<script>
+    //在 VUE实例上 绑定一个 属性 bus,
+    //每次创建 实例VUE都会携带此属性
+    Vue.prototype.bus = new Vue()
+    var child = {
+        props: {
+            content: {
+                type: String
+            }
+        },
+        data() {
+            return {
+                realContent: this.content
+            }
+        },
+        template: '<div @click="handleClick">{{realContent}}</div>',
+        methods: {
+            handleClick: function () {
+                // alert(this.realContent)
+                // alert(1234)
+                this.bus.$emit('change',this.realContent)
+            }
+        },
+        mounted() {
+            _this = this;
+          this.bus.$on('change', function(msg){
+              //这里的this 因为是个 匿名函数，想要使用this，需要将引用切换指向
+            _this.realContent = msg
+            // alert(msg)
+          })  
+        },
+    }
+    var vm = new Vue({
+        el: '#root',
+        components: { child: child }
+    })
+</script>
+
+</html>

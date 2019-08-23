@@ -1,0 +1,41 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件component的参数校验与非props属性</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id='root'>
+        <child :content='"321"'></child>
+    </div>
+    <script>
+        var demo = {
+            // props:{
+            //     content:{
+            //         type:String,
+            //         required:true,
+            //         default:'hello world',
+            //         //自定义函数检查
+            //         validator:function(value){
+            //             return value ==='321'
+            //         }
+            //     }
+            // },
+
+            //非props属性，既组件中没有定义 props属性，但是组件时使用到的
+            // 此时入 使用组件 <child content='"321"'></child>
+            //因为 demo中没有content这个props，所以就会直接继承下来，到模板之中
+            template: '<div>2</div>'
+        }
+        var vm = new Vue({
+            el: '#root',
+            components: { child:demo }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue中使用插槽（slot）</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <child>
+            <p slot="header">header</p>
+            <p slot="footer">footer</p>
+        </child>
+    </div>
+    <script>
+        //插槽的使用、定义
+        //就像是 原生 select标签下还可以写option一样
+
+        // 通过name 命名的插槽 叫做 具名插槽，还可以有默认值
+        var child = {
+            template:`<div>
+                    <slot name ='header'></slot>
+                    hello
+                    <slot name = 'footer'></slot>
+                </div>`
+        }
+        var vm = new Vue({
+            el:"#root",
+            components:{
+                child:child
+            }
+        })
+    </script>
+</body>
+</html>
