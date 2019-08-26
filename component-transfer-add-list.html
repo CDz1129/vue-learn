@@ -1,0 +1,43 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>添加项 动画</title>
+    <script src="./vue.js"></script>
+    <link rel="stylesheet" href="./animate.css">
+</head>
+
+<body>
+    <div id="root">
+        <transition-group enter-active-class="animated shake">
+            <div v-for="(item, index) in list" :key="item.id">
+                {{item.text}}
+            </div>
+        </transition-group>
+        <button @click="handleClick">add</button>
+    </div>
+</body>
+<script>
+
+    var count = 0;
+    var vm = new Vue({
+        el: "#root",
+        data() {
+            return {
+                list: []
+            }
+        },
+        methods: {
+            handleClick() {
+                this.list.push({
+                    id: count++,
+                    text: "hello world" + count
+                })
+            }
+        },
+    })
+</script>
+
+</html>

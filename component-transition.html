@@ -1,0 +1,57 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VUE组件过度动画</title>
+    <script src="./vue.js"></script>
+    <style>
+        .slide-fade-enter-active {
+            transition: all .3s ease;
+        }
+
+        .slide-fade-leave-active {
+            transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        }
+
+        .slide-fade-enter,
+        .slide-fade-leave-to
+
+        /* .slide-fade-leave-active for below version 2.1.8 */
+            {
+            transform: translateX(10px);
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <transition name="slide-fade">
+            <child v-if="show"></child>
+        </transition>
+        <button @click="handleClick">按钮</button>
+    </div>
+    <script>
+        Vue.component("child", {
+            template: "<div>child</div>"
+        })
+
+        var vm = new Vue({
+            el: "#root",
+            data() {
+                return {
+                    show: true
+                }
+            },
+            methods: {
+                handleClick() {
+                    this.show = !this.show
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

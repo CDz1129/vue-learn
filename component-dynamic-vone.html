@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VUE 动态组件与 v-once</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <component :is="type"></component>
+        <child-one v-if="type==='childOne'"></child-one>
+        <child-two v-if="type==='childTwo'"></child-two>
+        <button @click="handleClickBtn">change</button>
+    </div>
+    <script>
+
+        var childOne ={
+            //v-once 是指 第一次加载完成以后，当未来大概率会切换回来时，
+            //可以将此组件缓存，提高性能
+            //对于静态资源很拥有
+            template:"<div v-once>ChildOne</div>"            
+        }
+
+        var childTwo ={
+            template:"<div v-once>ChildTwo</div>" 
+        }
+
+        var vm = new Vue({
+            el:"#root",
+            components:{
+                childOne :childOne,
+                childTwo:childTwo
+            },
+            data() {
+                return {
+                    type:'childOne'
+                }
+            },
+            methods: {
+                handleClickBtn(){
+                    return this.type = this.type ==='childOne'?
+                        'childTwo':'childOne'
+                }
+            },
+        })
+    </script>
+</body>
+</html>

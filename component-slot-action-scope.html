@@ -1,0 +1,48 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>作用域插槽</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <child>
+            <template v-slot:default="slotProps">
+                {{ slotProps.user.firstName }}
+            </template>
+        </child>
+    </div>
+    <script>
+        //插槽的使用、定义
+        //就像是 原生 select标签下还可以写option一样
+
+        // 通过name 命名的插槽 叫做 具名插槽，还可以有默认值
+        var child = {
+            template: `<span>
+  <slot v-bind:user="user">
+    {{ user.lastName }}
+  </slot>
+</span>`, data() {
+                return {
+                    user: {
+                        firstName: 'Chen',
+                        lastName: 'Dezhi'
+                    }
+                }
+            },
+        };
+        var vm = new Vue({
+            el: "#root",
+            components: {
+                child: child,
+            },
+
+        })
+    </script>
+</body>
+
+</html>

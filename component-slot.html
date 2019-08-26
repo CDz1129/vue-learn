@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -6,11 +7,17 @@
     <title>vue中使用插槽（slot）</title>
     <script src="./vue.js"></script>
 </head>
+
 <body>
     <div id="root">
         <child>
-            <p slot="header">header</p>
-            <p slot="footer">footer</p>
+            <!-- 新增内容——v-slot 其只能使用在 template标签上并且，后面是跟:slot的名字 -->
+            <template v-slot:header>
+                <p>header</p>
+            </template>
+            <template v-slot:footer>
+                <p>footer</p>
+            </template>
         </child>
     </div>
     <script>
@@ -19,18 +26,27 @@
 
         // 通过name 命名的插槽 叫做 具名插槽，还可以有默认值
         var child = {
-            template:`<div>
+            template: `<div>
                     <slot name ='header'></slot>
                     hello
                     <slot name = 'footer'></slot>
                 </div>`
         }
         var vm = new Vue({
-            el:"#root",
-            components:{
-                child:child
+            el: "#root",
+            components: {
+                child: child,
+                data() {
+                    return {
+                        userInfo:{
+                            firtName:'Chen',
+                            lastName:'Dezhi'
+                        }
+                    }
+                },
             }
         })
     </script>
 </body>
+
 </html>

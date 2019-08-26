@@ -1,0 +1,42 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VUE组件过度动画(使用animate过度动画)</title>
+    <script src="./vue.js"></script>
+    <link rel="stylesheet" href="./animate.css">
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <transition name="slide-fade" enter-active-class="animated shake" leave-active-class="animated swing">
+            <child v-if="show"></child>
+        </transition>
+        <button @click="handleClick">按钮</button>
+    </div>
+    <script>
+        Vue.component("child", {
+            template: "<div>child</div>"
+        })
+
+        var vm = new Vue({
+            el: "#root",
+            data() {
+                return {
+                    show: true
+                }
+            },
+            methods: {
+                handleClick() {
+                    this.show = !this.show
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>
